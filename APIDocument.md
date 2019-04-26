@@ -6,12 +6,18 @@
 - [**对外开放接口说明**](#0)
   - [接口说明](#-01)
   - [token签名说明](#-02)
+- [**授权接口**](#1)
+  - [获取Domain接口](#-11)
+  - [登陆接口](#-12)
+  - [根据Token获取用户信息接口](#-13)
+  - [刷新Token接口](#-14)
+  
 
-- [**门店查询接口**](#1)
-  - [门店列表查询](#-11)
-- [**仓位查询接口**](#2)
-  - [仓位列表查询](#-21)
-  - [仓位详细查询](#-22)
+- [**门店查询接口**](#2)
+  - [门店列表查询](#-21)
+- [**仓位查询接口**](#3)
+  - [仓位列表查询](#-31)
+  - [仓位详细查询](#-32)
 - [**接口异常**](#100)
   - [异常说明](#-101)
 
@@ -20,10 +26,10 @@
 <a name="-01"><h2>接口说明</h2></a>
 
 
-###1、请求体构成
+### 1、请求体构成
 
 
->###1.URL:https://{Domain}/api/{Language}/{Path} 
+> ### 1.URL:https://{Domain}/api/{Language}/{Path} 
 
 >>- _Domain:主域默认是w2smapit.wayto.store，不同的公司由平台派发_
 >>- _Language:当前的语言（目前仅支持中文cn、英文en）_  
@@ -34,10 +40,10 @@
 >>- _token接口签名_
 
 
-###2、响应体构成
-
+### 2、响应体构成
 
 <font color=#ff0000 size=2 face="黑体">请求统一返回JSON数据</font>
+
 > 响应主体结构
 > ``{
 "info":[{"status":{Status},"message":{Message}}],
@@ -55,11 +61,149 @@
 
 ### token签名是保证接口数据安全的机制，由登录或平台定制生成，失效后请刷新token，采用单点登录方式如被其他人登录此账号token将失效。
 
+<a name="-11"><h2>获取Domain接口</h2></a> 
 
-<a name="-11"><h2>门店列表查询</h2></a>  
+### _[GET]Path:app/getDomainByCode_  
+
+ 字段 |  类型 | 必填 |   说明
+------ |--------|----| ----------------------------------------------------
+  code   |  String | Y | 授权码
+ 
+
+###  返回结果
+ 
+```
+{
+    "info": {
+        "status": 1,
+        "message": ""
+    },
+    "data": {
+        "domain": "https://w2smapit.wayto.store/",
+        "daysLeft": 505,
+        "describe": "",
+        "companyName": "LockerInC",
+        "companyLogo": null
+    }
+}
+
+```
+ 字段 |  类型  |   说明
+------ |--------| ----------------------------------------------------
+  domain   |  String | 返回当前企业域名
+  daysLeft   | Int  | 该企业有效期剩余天数
+  describe  |  String   | 描述信息
+  companyName | String  | 企业名称
+  companyLogo | String  | 企业Logo
+  
+ 
+<a name="-12"><h2> 登陆接口</h2></a> 
+### _[POST]Path:users/login_  
+
+  字段 |  类型 | 必填 |   说明
+------ |--------|----| ----------------------------------------------------
+ account   |  String | Y | 账号
+ password   |  String | Y | 密码
+ deviceToken   |  String | N | 设备信息，用户app端推送
+ isMD5   |  Int | Y | 是否MD5加密，1需要加密，0不用加密
+ 
+### 返回结果
+```
+{
+    "info": {
+        "status": 1,
+        "message": ""
+    },
+    "data": {
+        "id": "2019032910064731227786fa0bdc966",
+        "name": "Demolb",
+        "headPortrait": null,
+        "gender": 0,
+        "remarks": "",
+        "token": "1EF35F939491E9FDC54A1168FCFA0675DA8D545751BD61F5BC16E464139C9087052343EA073943DC9A59A92A80A78B04F40489FC4C11A9E8",
+        "couponsAbleCount": 2
+    }
+}
+```
+ 字段 |  类型  |   说明
+------ |--------| ----------------------------------------------------
+  id   |  String | 用户id
+  token | String | 当前登录token
+  name   | String  | 用户名
+  headPortrait  |  String   | 用户头像
+  gender | Int  | 性别：1男，2女，0未知
+  couponsAbleCount| Int | 可使用优惠券张数
+  remarks | String  | 备注
+ 
+ <a name="-13"><h2>根据Token获取用户信息接口</h2></a> 
+ 
+ ### _[POST]Path:user/getInfoByToken_  
+ 
+  字段 |  类型 | 必填 |   说明
+------ |--------|----| ----------------------------------------------------
+  token   |  String | Y | token
+  ### 返回结果
+  
+```
+{
+    "info": {
+        "status": 1,
+        "message": ""
+    },
+    "data": {
+        "id": "2019032910064731227786fa0bdc966",
+        "name": "Demolb",
+        "headPortrait": null,
+        "gender": 0,
+        "remarks": "",
+        "token": "1EF35F939491E9FDC54A1168FCFA0675DA8D545751BD61F5BC16E464139C9087052343EA073943DC9A59A92A80A78B04F40489FC4C11A9E8",
+        "couponsAbleCount": 2
+    }
+}
+```
+ 字段 |  类型  |   说明
+------ |--------| ----------------------------------------------------
+  id   |  String | 用户id
+  token | String | 当前登录token
+  name   | String  | 用户名
+  headPortrait  |  String   | 用户头像
+  gender | Int  | 性别：1男，2女，0未知
+  couponsAbleCount| Int | 可使用优惠券张数
+  remarks | String  | 备注
+  
+  
+  <a name="-14"><h2>刷新Token接口</h2></a>  
+  ### _[POST]Path:user/refreshTokenByToken_  
+  
+    字段 |  类型 | 必填 |   说明
+------ |--------|----| ----------------------------------------------------
+  token   |  String | Y | 原token
+  
+  
+ ### 返回结果
+  
+  ```
+  {
+    "info": {
+        "status": 1,
+        "message": ""
+    },
+    "tokenStatus": 1,
+    "data": {
+        "token": "1EF35F939491E9FDC54A1168FCFA0675DA8D545751BD61F5BC16E464139C9087052343EA073943DC157A98EF920E4193A4D3A2DF486E5E3B"
+    }
+}
+  ```
+    字段 |  类型 |   说明
+------ |--------|----| ----------------------------------------------------
+  token   |  String  | 新token
+
+<a name="-21"><h2>门店列表查询</h2></a>  
 
 
-###用于请求门店列表信息_[GET]Path:store/list_  
+  
+
+### _[GET]Path:store/list_  
 
 
 ### 返回结果
@@ -105,6 +249,7 @@
   ]
 }
 ```
+
   字段 |  类型  |   说明
 ------ |--------| ----------------------------------------------------
   id   |  String | id
@@ -121,13 +266,13 @@ amountUnleased | Int | 未租仓数总数
 amountOutOfStock| Int| 下架仓总数
 amountValidReserved| Int| 预留仓总数
 
-<a name="-21"><h2>仓位列表查询</h2></a>  
+<a name="-31"><h2>仓位列表查询</h2></a>  
 
 
-###用于请求门店列表信息_[GET]Path:_warehouse/list_
+### _[GET]Path:_warehouse/list_
 
 
-###请求参数  
+### 请求参数  
 
 
   字段 |  类型  | 必填 | 默认值 |  说明
