@@ -121,11 +121,11 @@
 ###请求参数
  字段 |  类型 | 必填 |   说明
 ------ |--------|----| ----------------------------------------------------
-  page   |  Int | Y | 从1开始
+	page |  Int | Y | 从1开始
   rows | Int| Y | 每页显示条数
   storeName| String| N | 检索门店通过名字，空代表全部
   fromflg| Int | Y | 请求来源
-  token   |  String | Y | 登陆凭证
+  token |  String | Y | 登陆凭证
 
 
 ### 返回结果
@@ -174,15 +174,14 @@ companyID | String | 所属公司Id
 <a name="-31"><h2>获取空仓列表</h2></a>  
 
 
-### _[GET]Path:_units/getvacantlist_
-
+### _[GET]Path:_units/getVacantList_
 
 ### 请求参数  
 
 
   字段 |  类型  | 必填  |  说明
------- |--------| ------|-----| ----------------------------------------------------
-  page   |  Int |  Y  |  |请求页数,1开始
+------ |--------| ------| ----------------------------------------------------
+  page   |  Int |  Y  |  请求页数,1开始
   rows   | Int  | Y |   每页显示条数
   sort  |  String | N | 排序字段，默认updatetime,仓号：unitName价格:price面积：area体积：volume  
   order | String | N  | desc |排序规则: asc降序, desc降序
