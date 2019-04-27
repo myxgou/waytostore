@@ -111,7 +111,7 @@
 
 <a name="-21"><h2>门店列表查询</h2></a>  
 
-### _[GET]Path:store/getlist_    
+### _[GET]Path:store/getList_    
 
 ### 请求参数   
 
@@ -169,7 +169,7 @@ companyID | String | 所属公司Id
 
 <a name="-31"><h2>获取空仓列表</h2></a>  
 
-### _[GET]Path:_units/getVacantList_   
+### _[GET]Path:_units/getVacantList_ 
 
 ### 请求参数  
 
