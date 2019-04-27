@@ -5,7 +5,6 @@
 
 - [**对外开放接口说明**](#0)
   - [接口说明](#-01)
-  - [token签名说明](#-02)
 - [**授权接口**](#1)
   - [获取域名](#-11)
   - [根据用户名和密码获取Token](#-12)
@@ -53,14 +52,10 @@
 >>- _Result返回结果数据为JSON_
 >>- _TokenStatus: 1正常，2失效，3过期_  
 
-<a name="-02"><h2>token签名说明</h2></a>
-
-
-### token签名是保证接口数据安全的机制，由登录或平台定制生成，失效后请刷新token，采用单点登录方式如被其他人登录此账号token将失效。
 
 <a name="-11"><h2>获取域名</h2></a> 
 
-### _[GET]Path:app/getDomainById_  
+###  _[GET]Path:app/getDomainById_    
 
  字段 |  类型 | 必填 |   说明
 ------ |--------|----| ----------------------------------------------------
@@ -89,7 +84,7 @@
   
  
 <a name="-12"><h2>根据用户名和密码获取Token</h2></a> 
-### _[POST]Path:account/getToken  
+###  _[POST]Path:account/getToken_    
 
   字段 |  类型 | 必填 |   说明
 ------ |--------|----| ----------------------------------------------------
@@ -116,7 +111,7 @@
 
 <a name="-21"><h2>门店列表查询</h2></a>  
 
-### _[GET]Path:store/getlist_  
+### _[GET]Path:store/getlist_    
 
 ### 请求参数   
 
@@ -174,7 +169,7 @@ companyID | String | 所属公司Id
 
 <a name="-31"><h2>获取空仓列表</h2></a>  
 
-### _[GET]Path:_units/getVacantList_
+### _[GET]Path:_units/getVacantList_   
 
 ### 请求参数  
 
