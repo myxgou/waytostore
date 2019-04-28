@@ -211,6 +211,7 @@ token   |  String | Y | 登陆凭证
       "size": "10.00×5.50",
       "area": 55,
       "price": 1501.00,
+      "currencyUnit":"HKD"
       "specialInfo": "",
       "unitPic": "",
       "updateTime": "04/21/2019 16:12:35"
@@ -231,6 +232,7 @@ token   |  String | Y | 登陆凭证
   size | String  | 尺寸
   area| Float | 面积
   price| Float | 价格
+  currencyUnit| String  | 货币单位 港币HKD 元..
   specialInfo | String | 特殊说明，如有柱子
   updateDateTime | String | 更新时间
   unitPic| String | 仓位图，多个通过","分割
