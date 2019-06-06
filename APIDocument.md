@@ -13,6 +13,10 @@
   - [门店列表查询](#-21)
 - [**仓位查询接口**](#3)
   - [获取空仓列表](#-31)
+- [**用户接口**](#4)
+	- [注册接口](#-41)
+- [**预留接口**](#5)
+	- [预留仓提交接口](#-51)
 - [**接口异常**](#100)
   - [异常说明](#-101)
 
@@ -239,6 +243,89 @@ token   |  String | Y | 登陆凭证
   unitPic| String | 仓位图，多个通过","分割
 
 
+<a name="-41"><h2>用户注册</h2></a>  
+
+### _[GET]Path:_users/reg_ 
+
+### 请求参数  
+
+
+  字段 |  类型  | 必填  |  说明
+------ |--------| ------| ----------------------------------------------------
+  userName   |  String |  Y  |  用户名
+  sex   | Int  | N |   性别 1：男，2：女 0未知
+  mobileNumber  |  String | Y | 手机号 
+  email | String | Y  | 用户邮箱
+campanyName | String  | N | 公司名
+IDTypes | Int  | N | 证件类型 10：身份证；20：护照；30其它  
+IDNumber | String  | N | 证件号码
+district | String  | N | 所在地区
+address | String  | N |详细地址
+otherContact | String  | N | 其他联系方式
+fromflg| Int | Y | 请求来源
+token   |  String | Y | 登陆凭证
+
+### 返回结果
+
+```
+{
+  "info": {
+    "status": 1,
+    "message": ""
+  },
+  "pages": 1,
+  "data": [
+    {
+      "userID": "201903021911078170873c25c323214"
+    }
+  ]
+}
+```
+  字段 |  类型  |   说明
+------ |--------| ----------------------------------------------------
+  userID   |  String | 用户ID
+  
+  
+  <a name="-51"><h2>预留仓提交</h2></a>  
+
+### _[GET]Path:_cangwei/addreserved_ 
+
+### 请求参数  
+
+
+  字段 |  类型  | 必填  |  说明
+------ |--------| ------| ----------------------------------------------------
+  cangWeiID   |  String |  Y  |  仓位ID
+  userID   | String  | Y |  用户ID
+  reservedDays  |  Int | Y | 预留天数 
+  reserveDtFrom | String | Y  | 预留日期起
+reserveDtTo | String  | Y | 预留日期止
+payAmount | String  | Y | 预留金额
+remarks | String  | N | 预留信息
+fromflg| Int | Y | 请求来源
+token   |  String | Y | 登陆凭证
+
+### 返回结果
+
+```
+{
+  "info": {
+    "status": 1,
+    "message": ""
+  },
+  "pages": 1,
+  "data": [
+    {
+      "billID": "PO123123213213",
+      "reservedId": "201903021911078170873c25c323214"
+    }
+  ]
+}
+```
+  字段 |  类型  |   说明
+------ |--------| ----------------------------------------------------
+  billID   |  String | 账单编号，用户提交支付使用
+reservedId| String | 预留单ID
 
 <a name="-101"><h2>异常分类</h2></a>  
 >1、TokenStatus:
